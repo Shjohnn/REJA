@@ -15,12 +15,27 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 //4 route code
-app.get('/hello', (req, res) => {
-    res.end("<h1 style='color: blue;'>Welcome to the Home Page</h1>");
+let items = [];
+
+app.get('/', (req, res) => {
+    res.render('harid.ejs', { items: items });
 });
 
-app.get('/gift', (req, res) => {
-   res.end("<h1 style='color: green;'>Welcome to the Gift Page</h1>");
+app.post("/create-item", (req, res) => {
+    const newItem = req.body.item;
+    if (newItem && newItem.trim() !== "") {
+        items.push(newItem);
+    }
+    res.redirect('/');
+});
+
+
+// qoshimcha functionality for deleting items 
+
+app.post("/delete-item/:index", (req, res) => {
+    const index = req.params.index;
+    items.splice(index, 1);
+    res.redirect('/');
 });
 
 const server = http.createServer(app);
