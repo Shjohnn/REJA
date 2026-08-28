@@ -2,12 +2,21 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const http = require('http');
-
+const fs = require('fs');
 //1 Kirish code
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+let user;
 
+fs.readFile('database/database.json', 'utf8', (err, data) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    user = JSON.parse(data);
+});
 //2 session code
 
 //3 view engine code
@@ -29,7 +38,9 @@ app.post("/create-item", (req, res) => {
     res.redirect('/');
 });
 
-
+app.get("/author", (req, res) => {
+    res.render('author.ejs', { user: user });
+});
 // qoshimcha functionality for deleting items 
 
 app.post("/delete-item/:index", (req, res) => {
