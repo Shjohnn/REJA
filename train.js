@@ -15,17 +15,17 @@ console.log("TRAINING AREA");
 
 //YECHIM:
 
-let amount=0
-function countLetter(word, letter) {
-    for (let i=0; i<word.length; i++) {
-        if (word[i]==letter) {
-            amount++;
-        }
-    }
+// let amount=0
+// function countLetter(word, letter) {
+//     for (let i=0; i<word.length; i++) {
+//         if (word[i]==letter) {
+//             amount++;
+//         }
+//     }
 
-}
-countLetter("banan",'a')
-console.log(amount)
+// }
+// countLetter("banan",'a')
+// console.log(amount)
 
 
 

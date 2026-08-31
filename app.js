@@ -27,7 +27,7 @@ app.set('views', __dirname + '/views');
 let items = [];
 
 app.get('/', (req, res) => {
-    res.render('harid.ejs', { items: items });
+    res.render('reja.ejs', { items: items });
 });
 
 app.post("/create-item", (req, res) => {
