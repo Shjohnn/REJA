@@ -31,18 +31,33 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 //4 route code
-let items = [];
+// let items = [];
 
 app.get('/', (req, res) => {
-    res.render('reja.ejs', { items: items });
+    console.log('user / ga kirdi')
+    db.collection('plans').find().toArray((err, data) => {
+        if (err) {
+            console.log(err);
+            res.end("smth went wrong!");
+        } else {
+            console.log(data);
+            res.render('reja.ejs', { items: data });
+        }
+    });
 });
 
 app.post("/create-item", (req, res) => {
-    const newItem = req.body.item;
-    if (newItem && newItem.trim() !== "") {
-        items.push(newItem);
-    }
-    res.redirect('/');
+    console.log("user /create-item ga krdi")
+    const new_reja = req.body.reja;
+    db.collection('plans').insertOne({reja:new_reja},(err,data) => {
+        if(err) {
+            console.log(err); 
+            res.end("smth went wrong!");
+        } else{
+            res.redirect('/');
+        }
+    });
+    
 });
 
 app.get("/author", (req, res) => {
