@@ -1,8 +1,15 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-const http = require('http');
 const fs = require('fs');
+
+// MongoDB chaqirish 
+const db = require("./server").db();
+const mongodb = require('fs')
+
+
+
+
 //1 Kirish code
 app.use(express.static('public'));
 app.use(express.json());
@@ -49,8 +56,4 @@ app.post("/delete-item/:index", (req, res) => {
     res.redirect('/');
 });
 
-const server = http.createServer(app);
-let PORT = 3000;
-server.listen(PORT, function() {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+module.exports=app;
