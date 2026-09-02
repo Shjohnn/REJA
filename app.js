@@ -47,24 +47,26 @@ app.get('/', (req, res) => {
 });
 
 app.post("/create-item", (req, res) => {
-    // console.log("user /create-item ga krdi")
+    console.log("user entered /create-item")
+    console.log(req.body);
     const new_reja = req.body.reja;
-    db.collection('plans').insertOne({reja:new_reja},(err,data) => {
-        console.log(data.ops[0]);
-        res.json(data.ops[0]);
+    db.collection("plans").insertOne({reja: new_reja}, (err, data) => {
+        console.log(data.ops)
+       res.json(data.ops[0]);
     });
-    
 });
+
+app.post("/delete-item", (req, res) => {
+    const id = req.body.id;
+    db.collection("plans").deleteOne({_id: new mongodb.ObjectId(id)}, function (err, data) {
+        res.json({state: "succes"})
+    });
+})
 
 app.get("/author", (req, res) => {  
     res.render('author.ejs', { user: user });
 });
 // qoshimcha functionality for deleting items 
 
-app.post("/delete-item/:index", (req, res) => {
-    const index = req.params.index;
-    items.splice(index, 1);
-    res.redirect('/');
-});
 
 module.exports=app;
