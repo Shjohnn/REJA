@@ -5,7 +5,7 @@ const fs = require('fs');
 
 // MongoDB chaqirish 
 const db = require("./server").db();
-const mongodb = require('fs')
+const mongodb = require('mongodb')
 
 
 
@@ -47,20 +47,16 @@ app.get('/', (req, res) => {
 });
 
 app.post("/create-item", (req, res) => {
-    console.log("user /create-item ga krdi")
+    // console.log("user /create-item ga krdi")
     const new_reja = req.body.reja;
     db.collection('plans').insertOne({reja:new_reja},(err,data) => {
-        if(err) {
-            console.log(err); 
-            res.end("smth went wrong!");
-        } else{
-            res.redirect('/');
-        }
+        console.log(data.ops[0]);
+        res.json(data.ops[0]);
     });
     
 });
 
-app.get("/author", (req, res) => {
+app.get("/author", (req, res) => {  
     res.render('author.ejs', { user: user });
 });
 // qoshimcha functionality for deleting items 
